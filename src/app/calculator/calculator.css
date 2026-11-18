@@ -1,0 +1,375 @@
+
+
+
+CSS icon
+calculator
+/* ==========================================================================
+   Angular Calculator Component Stylesheet (src/app/calculator/calculator.css)
+   Designed for standalone Angular component view encapsulation.
+   Targets the exact template structure (.calculator, h1, .result,
+   .res_long_buttons, .res_other_buttons) with zero HTML changes required.
+   ========================================================================== */
+
+:host {
+  /* Color Palette & Surface Tokens */
+  --calc-bg-outer: radial-gradient(circle at 20% 20%, #1e293b 0%, #0f172a 70%);
+  --calc-chassis: linear-gradient(165deg, #1e2536 0%, #131824 100%);
+  --calc-chassis-border: rgba(255, 255, 255, 0.08);
+  --calc-chassis-highlight: rgba(255, 255, 255, 0.12);
+
+  /* Display Screen Tokens */
+  --screen-bg: linear-gradient(180deg, #0b101b 0%, #111827 100%);
+  --screen-border: rgba(255, 255, 255, 0.07);
+  --screen-text: #f8fafc;
+  --screen-glow: rgba(56, 189, 248, 0.18);
+
+  /* Standard Number / Operator Button Tokens (.res_other_buttons) */
+  --btn-bg: linear-gradient(180deg, #283248 0%, #1e2638 100%);
+  --btn-bg-hover: linear-gradient(180deg, #323e59 0%, #252f45 100%);
+  --btn-bg-active: linear-gradient(180deg, #1a2130 0%, #1e2638 100%);
+  --btn-text: #f1f5f9;
+  --btn-border: rgba(255, 255, 255, 0.08);
+  --btn-shadow:
+    0 4px 0 #0d121c,
+    0 6px 12px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  /* Operator Column Accent Tokens (4th column of .res_other_buttons) */
+  --btn-op-bg: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+  --btn-op-bg-hover: linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%);
+  --btn-op-bg-active: linear-gradient(180deg, #1d4ed8 0%, #1e40af 100%);
+  --btn-op-text: #ffffff;
+  --btn-op-shadow:
+    0 4px 0 #172554,
+    0 6px 14px rgba(37, 99, 235, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+
+  /* Long Action Button Tokens (.res_long_buttons — e.g., AC / CE) */
+  --btn-long-bg: linear-gradient(180deg, #f43f5e 0%, #e11d48 100%);
+  --btn-long-bg-hover: linear-gradient(180deg, #fb7185 0%, #f43f5e 100%);
+  --btn-long-bg-active: linear-gradient(180deg, #be123c 0%, #9f1239 100%);
+  --btn-long-text: #ffffff;
+  --btn-long-shadow:
+    0 4px 0 #881337,
+    0 6px 14px rgba(225, 29, 72, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+
+  /* Secondary Long Button Token (2nd .res_long_buttons — e.g., CE / DEL) */
+  --btn-long-alt-bg: linear-gradient(180deg, #475569 0%, #334155 100%);
+  --btn-long-alt-bg-hover: linear-gradient(180deg, #64748b 0%, #475569 100%);
+  --btn-long-alt-bg-active: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  --btn-long-alt-shadow:
+    0 4px 0 #0f172a,
+    0 6px 12px rgba(15, 23, 42, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+  /* Typography & Layout Tokens */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'SFMono-Regular', Consolas, monospace;
+  --focus-ring: 0 0 0 3px rgba(56, 189, 248, 0.55);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100dvh;
+  padding: 1.5rem;
+  background: var(--calc-bg-outer);
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+:host *,
+:host *::before,
+:host *::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Main Calculator Chassis (.calculator)
+   ========================================================================== */
+.calculator {
+  width: 100%;
+  max-width: 360px;
+  padding: 1.5rem 1.35rem 1.65rem;
+  border-radius: 26px;
+  background: var(--calc-chassis);
+  border: 1px solid var(--calc-chassis-border);
+  box-shadow:
+    0 24px 48px -12px rgba(0, 0, 0, 0.65),
+    0 12px 24px -8px rgba(0, 0, 0, 0.45),
+    inset 0 1px 1px var(--calc-chassis-highlight);
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle top ambient sheen on chassis */
+.calculator::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Header Title (h1)
+   ========================================================================== */
+.calculator h1 {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.calculator h1::before,
+.calculator h1::after {
+  content: '';
+  flex: 1;
+  max-width: 36px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.35));
+}
+
+.calculator h1::after {
+  background: linear-gradient(270deg, transparent, rgba(148, 163, 184, 0.35));
+}
+
+/* ==========================================================================
+   Display Wrapper & Read-Only Input (.result)
+   ========================================================================== */
+.calculator > div:first-of-type {
+  width: 100%;
+  position: relative;
+}
+
+.result {
+  width: 100%;
+  height: 4.5rem;
+  padding: 0.75rem 1.1rem;
+  border-radius: 16px;
+  border: 1px solid var(--screen-border);
+  background: var(--screen-bg);
+  color: var(--screen-text);
+  font-family: var(--font-mono);
+  font-size: 2.15rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: right;
+  letter-spacing: 0.03em;
+  outline: none;
+  cursor: default;
+  box-shadow:
+    inset 0 4px 10px rgba(0, 0, 0, 0.65),
+    inset 0 1px 2px rgba(0, 0, 0, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.06);
+  text-shadow: 0 0 14px var(--screen-glow);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.result:focus {
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow:
+    inset 0 4px 10px rgba(0, 0, 0, 0.65),
+    0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+.result::placeholder {
+  color: rgba(148, 163, 184, 0.35);
+}
+
+/* ==========================================================================
+   Keypad Container (2nd div inside .calculator)
+   Uses a 4-column CSS Grid:
+   - .res_long_buttons span 2 columns each (2 per row)
+   - .res_other_buttons span 1 column each (4 per row)
+   ========================================================================== */
+.calculator > div:last-of-type {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* ==========================================================================
+   Shared Base Button Reset & Tactile Physics
+   ========================================================================== */
+.res_long_buttons,
+.res_other_buttons {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid var(--btn-border);
+  border-radius: 14px;
+  min-height: 3.6rem;
+  padding: 0.65rem 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transform: translateY(0);
+  transition:
+    transform 0.08s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.12s ease,
+    background 0.15s ease,
+    filter 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.res_long_buttons:focus-visible,
+.res_other_buttons:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  z-index: 2;
+}
+
+/* ==========================================================================
+   Long Utility Buttons (.res_long_buttons — e.g. "AC", "CE")
+   ========================================================================== */
+.res_long_buttons {
+  grid-column: span 2;
+  background: var(--btn-long-bg);
+  color: var(--btn-long-text);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: var(--btn-long-shadow);
+}
+
+.res_long_buttons:hover {
+  background: var(--btn-long-bg-hover);
+  filter: brightness(1.04);
+}
+
+.res_long_buttons:active {
+  transform: translateY(3px);
+  background: var(--btn-long-bg-active);
+  box-shadow:
+    0 1px 0 #881337,
+    0 2px 5px rgba(0, 0, 0, 0.35),
+    inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Differentiate the 2nd long button (e.g., Clear Entry / Backspace) */
+.res_long_buttons:nth-of-type(2) {
+  background: var(--btn-long-alt-bg);
+  box-shadow: var(--btn-long-alt-shadow);
+}
+
+.res_long_buttons:nth-of-type(2):hover {
+  background: var(--btn-long-alt-bg-hover);
+}
+
+.res_long_buttons:nth-of-type(2):active {
+  background: var(--btn-long-alt-bg-active);
+  box-shadow:
+    0 1px 0 #0f172a,
+    0 2px 5px rgba(0, 0, 0, 0.35),
+    inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   Standard Number & Operator Buttons (.res_other_buttons)
+   ========================================================================== */
+.res_other_buttons {
+  grid-column: span 1;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  box-shadow: var(--btn-shadow);
+}
+
+.res_other_buttons:hover {
+  background: var(--btn-bg-hover);
+}
+
+.res_other_buttons:active {
+  transform: translateY(3px);
+  background: var(--btn-bg-active);
+  box-shadow:
+    0 1px 0 #0d121c,
+    0 2px 5px rgba(0, 0, 0, 0.3),
+    inset 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+/* Highlight operator column (every 4th .res_other_buttons in a 4-col grid) */
+.res_other_buttons:nth-child(4n of .res_other_buttons) {
+  background: var(--btn-op-bg);
+  color: var(--btn-op-text);
+  font-size: 1.3rem;
+  font-weight: 700;
+  box-shadow: var(--btn-op-shadow);
+}
+
+.res_other_buttons:nth-child(4n of .res_other_buttons):hover {
+  background: var(--btn-op-bg-hover);
+}
+
+.res_other_buttons:nth-child(4n of .res_other_buttons):active {
+  background: var(--btn-op-bg-active);
+  box-shadow:
+    0 1px 0 #172554,
+    0 2px 5px rgba(0, 0, 0, 0.35),
+    inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   Responsive & Accessibility Adjustments
+   ========================================================================== */
+@media (max-width: 400px) {
+  :host {
+    padding: 0.75rem;
+  }
+
+  .calculator {
+    padding: 1.2rem 1rem 1.35rem;
+    border-radius: 22px;
+  }
+
+  .result {
+    height: 4rem;
+    font-size: 1.85rem;
+  }
+
+  .calculator > div:last-of-type {
+    gap: 0.6rem;
+  }
+
+  .res_long_buttons,
+  .res_other_buttons {
+    min-height: 3.25rem;
+    font-size: 1.1rem;
+    border-radius: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .res_long_buttons,
+  .res_other_buttons,
+  .result {
+    transition: none;
+  }
+}

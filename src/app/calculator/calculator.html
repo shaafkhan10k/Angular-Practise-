@@ -1,0 +1,20 @@
+<div class="calculator">
+  <h1>Calculator</h1>
+  <div>
+    <input class="result" type="text" readonly />
+  </div>
+
+  <div>
+    @for (longButton of longButtons; track longButton) {
+      <button type="button" class="res_long_buttons">
+        {{ longButton }}
+      </button>
+    }
+
+    @for (button of Buttons; track button) {
+      <button type="button" class="res_other_buttons">
+        {{ button }}
+      </button>
+    }
+  </div>
+</div>
